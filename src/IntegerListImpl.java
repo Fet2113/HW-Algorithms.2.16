@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class IntegerListImpl implements IntegerList {
 
@@ -73,10 +75,10 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public boolean contains(Integer item) {
-    Integer[] storageCopy = toArray();
-    sort(storageCopy);
+        Integer[] storageCopy = toArray();
+        sort(storageCopy);
 
-        return binarySearch(storageCopy,item);
+        return binarySearch(storageCopy, item);
     }
 
     @Override
@@ -152,6 +154,7 @@ public class IntegerListImpl implements IntegerList {
             throw new InvalidIndexExeption();
         }
     }
+
     private void sort(Integer[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int temp = arr[i];
@@ -183,8 +186,6 @@ public class IntegerListImpl implements IntegerList {
         }
         return false;
     }
-    long start = System.currentTimeMillis();
-//    ваш_метод_сортировки(arr);
 
-// System.out.println(System.currentTimeMillis() - start);
+
 }
