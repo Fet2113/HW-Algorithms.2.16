@@ -17,7 +17,7 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public Integer add(Integer item) {
-        validateSize();
+        growIfNeeded();
         validateItem(item);
         storage[size++] = item;
         return item;
@@ -25,7 +25,7 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public Integer add(int index, Integer item) {
-        validateSize();
+        growIfNeeded();
         validateItem(item);
         validateIndex(index);
         if (index == size) {
