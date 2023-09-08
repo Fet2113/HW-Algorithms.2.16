@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.stream.IntStream;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -6,12 +9,60 @@ public class Main {
         // IntelliJ IDEA suggests fixing it.
         System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        int[] randomIntsArray1 = IntStream.generate(() -> new Random().nextInt(100)).limit(100000).toArray();
+        int[] randomIntsArray2 = IntStream.generate(() -> new Random().nextInt(100)).limit(100000).toArray();
+        int[] randomIntsArray3 = IntStream.generate(() -> new Random().nextInt(100)).limit(100000).toArray();
+        long start = System.currentTimeMillis();
+        sortBubble(randomIntsArray1);
+        System.out.println(System.currentTimeMillis() - start);
+        long start2 = System.currentTimeMillis();
+        sortSelection(randomIntsArray2);
+        System.out.println(System.currentTimeMillis() - start2);
+        long start3 = System.currentTimeMillis();
+        sortInsertion(randomIntsArray3);
+        System.out.println(System.currentTimeMillis() - start3);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+
+    }
+
+    private static void swapElements(int[] arr, int indexA, int indexB) {
+        int tmp = arr[indexA];
+        arr[indexA] = arr[indexB];
+        arr[indexB] = tmp;
+    }
+
+    public static void sortBubble(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swapElements(arr, j, j + 1);
+                }
+            }
         }
     }
+
+    public static void sortSelection(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minElementIndex = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[minElementIndex]) {
+                    minElementIndex = j;
+                }
+            }
+            swapElements(arr, i, minElementIndex);
+        }
+    }
+
+    public static void sortInsertion(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int temp = arr[i];
+            int j = i;
+            while (j > 0 && arr[j - 1] >= temp) {
+                arr[j] = arr[j - 1];
+                j--;
+            }
+            arr[j] = temp;
+        }
+    }
+
 }
